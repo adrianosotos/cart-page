@@ -2,21 +2,18 @@ import { useEffect, useState } from 'react'
 import Axios from 'axios'
 import ProductCard from '../components/ProductCard'
 
-function Cart () {
+function Cart ({ apiPath }) {
   const [items, setItems] = useState([])
   const [cartTotal, setCartTotal] = useState('')
   const [isFreeDelivery, setIsFreeDelivery] = useState(false)
   
   useEffect(() => {
-    const path = isFreeDelivery ? 'frete-gratis' : 'sem-frete-gratis'
-    Axios.get(`http://localhost:5000/${path}`).then((res) => {
-      console.log(res.data)
-
+    Axios.get(`http://localhost:5000/${apiPath}`).then((res) => {
       setItems(formatPrices(res.data.items))
       setCartTotal(getCartTotal(res.data.totalizers))
       setFreeDelivery(res.data.totalizers)
     })
-  }, [isFreeDelivery])
+  }, [isFreeDelivery, apiPath])
 
   function getCartTotal (totalizers) {
     return totalizers.reduce((total, data) => {
@@ -51,8 +48,28 @@ function Cart () {
     }
   }
 
-  function toogleDeliveryMode () {
-    setIsFreeDelivery(!isFreeDelivery)
+  function handleFreeDeliveryFlag () {
+    if (!isFreeDelivery) {
+      return null
+    }
+
+    return (
+      <div className="free-delivery-flag">Parabéns, sua compra tem frete grátis !</div>
+    )
+  }
+
+  function getProductCards () {
+    return items.map((item) => {
+      return (
+        <ProductCard 
+          key={item.id}
+          imageSrc={item.imageUrl}
+          productName={item.name}
+          oldPrice={item.listPrice}
+          price={item.sellingPrice}
+        />
+      )
+    })
   }
   
   return (
@@ -62,9 +79,7 @@ function Cart () {
         <h1>Meu carrinho</h1>
       </div>
 
-      {
-        items.map((item) => <ProductCard imageSrc={item.imageUrl} productName={item.name} oldPrice={item.listPrice} price={item.sellingPrice} />)
-      }
+      {getProductCards()}
 
       <div className="totalizer-container">
         <div className="totalizer-content">
@@ -72,15 +87,13 @@ function Cart () {
             <div className="totalizer-label">Total</div>
             <div className="totalizer-price">{cartTotal}</div>
           </div>
-          {
-            isFreeDelivery ? 
-              <div className="free-delivery-flag">Parabéns, sua compra tem frete grátis !</div>
-              : null
-          }
+
+          {handleFreeDeliveryFlag()}
+
         </div>
       </div>
       <div className="button-container">
-        <button onClick={toogleDeliveryMode}>Finalizar compra</button>
+        <button>Finalizar compra</button>
       </div>
     </div>
   )
