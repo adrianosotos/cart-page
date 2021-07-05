@@ -1,4 +1,4 @@
-import { render, screen, act, cleanup, waitFor } from '@testing-library/react';
+import { render, screen, cleanup, waitFor } from '@testing-library/react';
 import Cart from '../pages/Cart'
 import axios from 'axios';
 
