@@ -8,6 +8,9 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
+          <Route path="/">
+            <Cart apiPath={'frete-gratis'} />
+          </Route>
           <Route path="/frete-gratis">
             <Cart apiPath={'frete-gratis'} />
           </Route>
