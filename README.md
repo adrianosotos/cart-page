@@ -14,7 +14,7 @@ Frontend: Data is rendered by a React App (create-react-app) using SASS pre-proc
 # Start server.
 node server/index.js 
 
-#Start client APP
+# Start client APP
 npm start --prefix client
 
 ```
