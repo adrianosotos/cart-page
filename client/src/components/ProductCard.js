@@ -1,11 +1,11 @@
 function ProductCard ({imageSrc, productName, oldPrice, price}) {
   return (
     <div className="product-card">
-      <img src={imageSrc} />
+      <img data-testid="imageSrc" src={imageSrc} />
       <div className="product-details">
-        <p className="product-name">{productName}</p>
-        <p className="old-price">{oldPrice}</p>
-        <p className="price">{price}</p>
+        <p data-testid="productName" className="product-name">{productName}</p>
+        <p data-testid="oldPrice" className="old-price">{oldPrice}</p>
+        <p data-testid="price" className="price">{price}</p>
       </div>
     </div>
   )
