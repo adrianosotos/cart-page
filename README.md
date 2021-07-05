@@ -23,7 +23,7 @@ http://localhost:3000/frete-gratis runs cart page with free delivery options and
 
 Just go to [http://localhost:3000](http://localhost:3000) and have fun!
 
-## This project is coverage by component tests
+## This project is covered by component tests
 
 ```bash
 npm run test
