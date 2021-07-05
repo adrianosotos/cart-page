@@ -16,7 +16,7 @@ function Cart ({ apiPath }) {
   }, [isFreeDelivery, apiPath])
 
   function getCartTotal (totalizers) {
-    return totalizers.reduce((total, data) => {
+    return totalizers && totalizers.reduce((total, data) => {
       if (/Items/.test(data.id)) {
         total = priceFormatter(data.value)
       }
@@ -26,7 +26,7 @@ function Cart ({ apiPath }) {
   }
 
   function formatPrices (items) {
-    return items.map(item => {
+    return items && items.map(item => {
       item.listPrice = priceFormatter(item.listPrice)
       item.sellingPrice = priceFormatter(item.sellingPrice)
 
@@ -41,9 +41,9 @@ function Cart ({ apiPath }) {
   }
 
   function setFreeDelivery (totalizers) {
-    const itemsTotalPayload = totalizers.find((payload) => /Items/.test(payload.id))
+    const itemsTotalPayload = totalizers && totalizers.find((payload) => /Items/.test(payload.id))
 
-    if (itemsTotalPayload.value > 1000) {
+    if (itemsTotalPayload && itemsTotalPayload.value > 1000) {
       setIsFreeDelivery(true)
     }
   }
@@ -54,12 +54,17 @@ function Cart ({ apiPath }) {
     }
 
     return (
-      <div className="free-delivery-flag">Parabéns, sua compra tem frete grátis !</div>
+      <div 
+        className="free-delivery-flag"
+        data-testid="free-delivery-flag"
+      >
+        Parabéns, sua compra tem frete grátis !
+      </div>
     )
   }
 
   function getProductCards () {
-    return items.map((item) => {
+    return items && items.map((item) => {
       return (
         <ProductCard 
           key={item.id}
