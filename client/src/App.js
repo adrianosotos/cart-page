@@ -8,15 +8,20 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/">
-            <Cart apiPath={'frete-gratis'} />
-          </Route>
-          <Route path="/frete-gratis">
-            <Cart apiPath={'frete-gratis'} />
-          </Route>
-          <Route path="/sem-frete-gratis">
-            <Cart apiPath={'sem-frete-gratis'} />
-          </Route>
+          <Route 
+            exact
+            path="/frete-gratis" 
+            render={(props) => 
+              <Cart {...props} apiPath={"frete-gratis"} />
+            }
+          />
+          <Route 
+            exact
+            path="/sem-frete-gratis" 
+            component={(props) => 
+              <Cart {...props} apiPath={"sem-frete-gratis"} />
+            }
+          />
         </Switch>
       </Router>
     </div>
