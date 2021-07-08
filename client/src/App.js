@@ -10,6 +10,13 @@ function App() {
         <Switch>
           <Route 
             exact
+            path="/" 
+            render={(props) => 
+              <Cart {...props} apiPath={"frete-gratis"} />
+            }
+          />
+          <Route 
+            exact
             path="/frete-gratis" 
             render={(props) => 
               <Cart {...props} apiPath={"frete-gratis"} />
